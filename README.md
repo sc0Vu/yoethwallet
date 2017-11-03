@@ -1,0 +1,2 @@
+# yoethwallet
+Another ethereum wallet.
