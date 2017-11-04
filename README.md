@@ -1,4 +1,5 @@
 # yoethwallet
+[![Build Status](https://travis-ci.org/sc0Vu/yoethwallet.svg?branch=master)](https://travis-ci.org/sc0Vu/yoethwallet)
 
 Another ethereum wallet.
 
