@@ -1,0 +1,36 @@
+{
+  "name": "yoethwallet",
+  "version": "0.0.1",
+  "description": "Another ethereum wallet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/*.js",
+    "lint": "./node_modules/.bin/eslint --ext .js lib test ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sc0Vu/yoethwallet.git"
+  },
+  "keywords": [
+    "ethereum",
+    "wallet"
+  ],
+  "author": "sc0Vu <alk03073135@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sc0Vu/yoethwallet/issues"
+  },
+  "homepage": "https://github.com/sc0Vu/yoethwallet#readme",
+  "dependencies": {
+    "bip39": "^2.4.0",
+    "ethereumjs-wallet": "^0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "tape": "^4.8.0"
+  }
+}
