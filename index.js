@@ -1,5 +1,5 @@
 const yowallet = {
-  wallet: require('./lib/wallet')
-}
+  wallet: require('./lib/wallet'),
+};
 
-module.exports = exports = yowallet
+module.exports = exports = yowallet;
