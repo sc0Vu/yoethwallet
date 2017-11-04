@@ -4,7 +4,7 @@
   "description": "Another ethereum wallet.",
   "main": "index.js",
   "scripts": {
-    "test": "node test/*.js",
+    "test": "node_modules/.bin/istanbul cover test/*.js",
     "lint": "./node_modules/.bin/eslint --ext .js lib test ."
   },
   "repository": {
@@ -31,6 +31,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "istanbul": "^0.4.5",
     "tape": "^4.8.0"
   }
 }

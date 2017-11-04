@@ -5,6 +5,12 @@ node_js:
   - "7"
   - "8"
 
+install:
+  - npm install -g codecov
+
+after_success:
+  - codecov --token=b5a5fb0e-c792-4d5e-9193-120dc35d9122
+
 notifications:
   email:
     recipients:
