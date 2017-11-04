@@ -7,6 +7,12 @@ tape('yoethwallet wallet test', (t) => {
 
   wallet.generate();
 
+  t.test('validate seed', (st) => {
+    st.equal(wallet.validateSeed('notice duck nut oval cupboard spend border wagon chest forest crane video'), true);
+    st.equal(wallet.validateSeed('hello world'), false);
+    st.end();
+  });
+
   t.test('sholud get V3 file name', (st) => {
     st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getFilename()), true);
     st.end();
