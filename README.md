@@ -74,7 +74,7 @@ Create value transaction.
 
 ```
 txParams: {
-	to: '0x0000000000000000000000000000000000000000',
+  to: '0x0000000000000000000000000000000000000000',
   gas: 21000,
   gasPrice: 1,
   gasLimit: 21000
@@ -88,7 +88,7 @@ Create contract transaction.
 ```
 data: contract data
 txParams: {
-	to: '0x0000000000000000000000000000000000000000',
+  to: '0x0000000000000000000000000000000000000000',
   gas: 210000,
   gasPrice: 1,
   gasLimit: 210000
