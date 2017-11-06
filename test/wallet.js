@@ -35,6 +35,16 @@ tape('yoethwallet wallet test', (t) => {
     st.end();
   });
 
+  t.test('should get private key buffer', (st) => {
+    st.equal(wallet.getPrivateKeyBuffer().toString('hex'), wallet.getPrivateKey());
+    st.end();
+  });
+
+  t.test('should get public key buffer', (st) => {
+    st.equal(wallet.getPublicKeyBuffer().toString('hex'), wallet.getPublicKey());
+    st.end();
+  });
+
   t.test('should get address', (st) => {
     st.equal(/^0x[a-fA-F0-9]{40}$/.test(wallet.getAddress()), true);
     st.end();

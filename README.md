@@ -66,6 +66,35 @@ Get address hex string with 0x prefix.
 `fromJson(json, password)`
 Import wallet from v3 json string.
 
+### Tx
+
+`valueTx(txParams)`
+
+Create value transaction.
+
+```
+txParams: {
+	to: '0x0000000000000000000000000000000000000000',
+  gas: 21000,
+  gasPrice: 1,
+  gasLimit: 21000
+}
+```
+
+`contractTx(data, txParams)`
+
+Create contract transaction.
+
+```
+data: contract data
+txParams: {
+	to: '0x0000000000000000000000000000000000000000',
+  gas: 210000,
+  gasPrice: 1,
+  gasLimit: 210000
+}
+```
+
 # License
 
 MIT
