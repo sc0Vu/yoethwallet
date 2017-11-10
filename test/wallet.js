@@ -1,5 +1,6 @@
 const tape = require('tape');
 const yoethwallet = require('../index');
+// const crypto = require('crypto');
 
 tape('yoethwallet wallet test', (t) => {
   const wallet = yoethwallet.wallet;
@@ -18,10 +19,21 @@ tape('yoethwallet wallet test', (t) => {
     st.end();
   });
 
-  t.test('sholud get V3 json', (st) => {
+  t.test('sholud get V3 json with default scrypt and aes-128-ctr', (st) => {
     const v3 = JSON.parse(wallet.toJson('123456'));
 
     st.equal(v3.version, 3);
+    st.equal(v3.crypto.cipher, 'aes-128-ctr');
+    st.equal(v3.crypto.kdf, 'scrypt');
+    st.end();
+  });
+
+  t.test('sholud get V3 json with pbkdf2 and aes128', (st) => {
+    const v3 = JSON.parse(wallet.toJson('123456', {kdf: 'pbkdf2', cipher: 'aes128'}));
+
+    st.equal(v3.version, 3);
+    st.equal(v3.crypto.cipher, 'aes128');
+    st.equal(v3.crypto.kdf, 'pbkdf2');
     st.end();
   });
 

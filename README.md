@@ -47,7 +47,26 @@ Validate seed.
 
 Get v3 filename.
 
-`toJson(password)`
+`toJson(password, options)`
+
+options
+```
+{
+  salt: '...',
+  iv: '...',
+  dklen: '...',
+  kdf: '...',
+  cipher: '...',
+  // if kdf is pbkdf
+  c: '',
+  // if kdf is scrypt
+  n: '',
+  r: '',
+  p: '',
+}
+
+Remember the right dklen, cipher and iv size.
+```
 
 Export wallet to json.
 
