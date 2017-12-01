@@ -29,25 +29,32 @@ tape('yoethwallet wallet test', (t) => {
     st.end();
   });
 
-  // t.test('sholud get V3 json with default scrypt and aes-128-ctr', (st) => {
-  //   walletJson = wallet.toJson('123456');
+  t.test('sholud get V3 json with default scrypt and aes-128-ctr', (st) => {
+    wallet.toV3String('123456', {}, (err, v3String) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      walletJson = v3String;
 
-  //   const v3 = JSON.parse(walletJson);
+      const v3 = JSON.parse(walletJson);
 
-  //   st.equal(v3.version, 3);
-  //   st.equal(v3.crypto.cipher, 'aes-128-ctr');
-  //   st.equal(v3.crypto.kdf, 'scrypt');
-  //   st.end();
-  // });
+      st.equal(v3.version, 3);
+      st.equal(v3.crypto.cipher, 'aes-128-ctr');
+      st.equal(v3.crypto.kdf, 'scrypt');
+      st.end();
+    });
+  });
 
-  // t.test('sholud get V3 json with pbkdf2 and aes128', (st) => {
-  //   const v3 = JSON.parse(wallet.toJson('123456', {kdf: 'pbkdf2', cipher: 'aes128'}));
+  t.test('sholud get V3 json with pbkdf2 and aes128', (st) => {
+    wallet.toV3String('123456', {kdf: 'pbkdf2', cipher: 'aes128'}, (err, v3String) => {
+      const v3 = JSON.parse(v3String);
 
-  //   st.equal(v3.version, 3);
-  //   st.equal(v3.crypto.cipher, 'aes128');
-  //   st.equal(v3.crypto.kdf, 'pbkdf2');
-  //   st.end();
-  // });
+      st.equal(v3.version, 3);
+      st.equal(v3.crypto.cipher, 'aes128');
+      st.equal(v3.crypto.kdf, 'pbkdf2');
+      st.end();
+    });
+  });
 
   t.test('should get hex private key', (st) => {
     st.equal(/^[a-fA-F0-9]+$/.test(wallet.getHexPrivateKey()), true);
