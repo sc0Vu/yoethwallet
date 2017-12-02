@@ -1,6 +1,6 @@
 {
   "name": "yoethwallet",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Another ethereum wallet.",
   "main": "index.js",
   "scripts": {
