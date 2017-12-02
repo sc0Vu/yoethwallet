@@ -1,89 +1,108 @@
 const tape = require('tape');
 const yoethwallet = require('../index');
-// const crypto = require('crypto');
+
+let wallet = {};
+let walletJson = '';
+let address = '';
+let privateKey = '';
+
+tape('before yoethwallet wallet test', (t) => {
+  yoethwallet.wallet.generate('', '', (err, instance) => {
+    if (err) {
+      t.equal(err, null);
+      return;
+    }
+    wallet = instance;
+    t.end();
+  });
+});
 
 tape('yoethwallet wallet test', (t) => {
-  const wallet = yoethwallet.wallet;
-  let walletJson = '';
-  let address = '';
-  let privateKey = '';
-
-  wallet.generate();
-
-  t.test('validate seed', (st) => {
-    st.equal(wallet.validateSeed('notice duck nut oval cupboard spend border wagon chest forest crane video'), true);
-    st.equal(wallet.validateSeed('hello world'), false);
-    st.end();
-  });
+  // t.test('validate seed', (st) => {
+  //   st.equal(wallet.validateSeed('notice duck nut oval cupboard spend border wagon chest forest crane video'), true);
+  //   st.equal(wallet.validateSeed('hello world'), false);
+  //   st.end();
+  // });
 
   t.test('sholud get V3 file name', (st) => {
-    st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getFilename()), true);
+    st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getV3Filename()), true);
     st.end();
   });
 
   t.test('sholud get V3 json with default scrypt and aes-128-ctr', (st) => {
-    walletJson = wallet.toJson('123456');
+    wallet.toV3String('123456', {}, (err, v3String) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      walletJson = v3String;
 
-    const v3 = JSON.parse(walletJson);
+      const v3 = JSON.parse(walletJson);
 
-    st.equal(v3.version, 3);
-    st.equal(v3.crypto.cipher, 'aes-128-ctr');
-    st.equal(v3.crypto.kdf, 'scrypt');
-    st.end();
+      st.equal(v3.version, 3);
+      st.equal(v3.crypto.cipher, 'aes-128-ctr');
+      st.equal(v3.crypto.kdf, 'scrypt');
+      st.end();
+    });
   });
 
   t.test('sholud get V3 json with pbkdf2 and aes128', (st) => {
-    const v3 = JSON.parse(wallet.toJson('123456', {kdf: 'pbkdf2', cipher: 'aes128'}));
+    wallet.toV3String('123456', {kdf: 'pbkdf2', cipher: 'aes128'}, (err, v3String) => {
+      const v3 = JSON.parse(v3String);
 
-    st.equal(v3.version, 3);
-    st.equal(v3.crypto.cipher, 'aes128');
-    st.equal(v3.crypto.kdf, 'pbkdf2');
+      st.equal(v3.version, 3);
+      st.equal(v3.crypto.cipher, 'aes128');
+      st.equal(v3.crypto.kdf, 'pbkdf2');
+      st.end();
+    });
+  });
+
+  t.test('should get hex private key', (st) => {
+    st.equal(/^[a-fA-F0-9]+$/.test(wallet.getHexPrivateKey()), true);
     st.end();
   });
 
-  t.test('should get private key', (st) => {
-    st.equal(/^[a-fA-F0-9]+$/.test(wallet.getPrivateKey()), true);
-    st.end();
-  });
-
-  t.test('should get public key', (st) => {
-    st.equal(/^[a-fA-F0-9]+$/.test(wallet.getPublicKey()), true);
+  t.test('should get hex public key', (st) => {
+    st.equal(/^[a-fA-F0-9]+$/.test(wallet.getHexPublicKey()), true);
     st.end();
   });
 
   t.test('should get private key buffer', (st) => {
-    privateKey = wallet.getPrivateKeyBuffer();
+    privateKey = wallet.getPrivateKey();
 
-    st.equal(privateKey.toString('hex'), wallet.getPrivateKey());
+    st.equal(privateKey.toString('hex'), wallet.getHexPrivateKey());
     st.end();
   });
 
   t.test('should get public key buffer', (st) => {
-    st.equal(wallet.getPublicKeyBuffer().toString('hex'), wallet.getPublicKey());
+    st.equal(wallet.getPublicKey().toString('hex'), wallet.getHexPublicKey());
     st.end();
   });
 
-  t.test('should get address', (st) => {
-    address = wallet.getAddress();
+  t.test('should get hex address with prefix 0x', (st) => {
+    address = wallet.getHexAddress(true);
 
     st.equal(/^0x[a-fA-F0-9]{40}$/.test(address), true);
     st.end();
   });
 
   t.test('should generate from v3 json string', (st) => {
-    const v3Wallet = yoethwallet.wallet;
-
-    v3Wallet.fromJson(walletJson, '123456');
-
-    st.equal(v3Wallet.getAddress(), address);
-    st.end();
+    yoethwallet.wallet.fromV3String(walletJson, '123456', (err, v3Wallet) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      st.equal(v3Wallet.getHexAddress(true), address);
+      st.end();
+    });
   });
 
   t.test('should generate from private key', (st) => {
-    const pkWallet = wallet.fromPrivateKey(privateKey);
-
-    st.equal(pkWallet.getAddress(), address);
-    st.end();
+    yoethwallet.wallet.fromPrivateKey(privateKey, (err, instance) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      st.equal(instance.getHexAddress(true), address);
+      st.end();
+    });
   });
 
   t.end();
