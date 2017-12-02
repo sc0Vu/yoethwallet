@@ -35,7 +35,7 @@ wallet.getAddress()
 
 ### Wallet
 
-`generate(randomSeed, hdPath)`
+`generate(randomSeed, hdPath, callback)`
 
 Generate wallet.
 
@@ -43,11 +43,11 @@ Generate wallet.
 
 Validate seed.
 
-`getFilename()`
+`getV3Filename()`
 
 Get v3 filename.
 
-`toJson(password, options)`
+`toV3String(password, options, callback)`
 
 options
 ```
@@ -72,17 +72,29 @@ Export wallet to json.
 
 `getPrivateKey()`
 
+Get private key buffer.
+
+`getHexPrivateKey()`
+
 Get private key hex string.
 
 `getPublicKey()`
+
+Get public key buffer.
+
+`getHexPublicKey()`
 
 Get public key hex string.
 
 `getAddress()`
 
-Get address hex string with 0x prefix.
+Get address buffer.
 
-`fromJson(json, password)`
+`getHexAddress(withPrefix)`
+
+Get address hex string with 0x prefix or not.
+
+`fromV3String(json, password, callback)`
 Import wallet from v3 json string.
 
 ### Tx
