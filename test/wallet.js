@@ -25,7 +25,7 @@ tape('yoethwallet wallet test', (t) => {
   // });
 
   t.test('sholud get V3 file name', (st) => {
-    st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getFilename()), true);
+    st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getV3Filename()), true);
     st.end();
   });
 
@@ -85,14 +85,15 @@ tape('yoethwallet wallet test', (t) => {
     st.end();
   });
 
-  // t.test('should generate from v3 json string', (st) => {
-  //   const v3Wallet = yoethwallet.wallet;
-
-  //   v3Wallet.fromJson(walletJson, '123456');
-
-  //   st.equal(v3Wallet.getAddress(), address);
-  //   st.end();
-  // });
+  t.test('should generate from v3 json string', (st) => {
+    yoethwallet.wallet.fromV3String(walletJson, '123456', (err, v3Wallet) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      st.equal(v3Wallet.getHexAddress(true), address);
+      st.end();
+    });
+  });
 
   t.test('should generate from private key', (st) => {
     yoethwallet.wallet.fromPrivateKey(privateKey, (err, instance) => {
