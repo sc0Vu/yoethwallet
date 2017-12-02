@@ -6,7 +6,7 @@ let walletJson = '';
 let address = '';
 let privateKey = '';
 
-tape('before yoethwallet test', (t) => {
+tape('before yoethwallet wallet test', (t) => {
   yoethwallet.wallet.generate('', '', (err, instance) => {
     if (err) {
       t.equal(err, null);
