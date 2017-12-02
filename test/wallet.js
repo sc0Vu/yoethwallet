@@ -18,11 +18,17 @@ tape('before yoethwallet wallet test', (t) => {
 });
 
 tape('yoethwallet wallet test', (t) => {
-  // t.test('validate seed', (st) => {
-  //   st.equal(wallet.validateSeed('notice duck nut oval cupboard spend border wagon chest forest crane video'), true);
-  //   st.equal(wallet.validateSeed('hello world'), false);
-  //   st.end();
-  // });
+  t.test('validate seed', (st) => {
+    st.equal(yoethwallet.wallet.validSeed('notice duck nut oval cupboard spend border wagon chest forest crane video'), true);
+    st.equal(yoethwallet.wallet.validSeed('hello world'), false);
+    st.end();
+  });
+
+  t.test('validate hdPath', (st) => {
+    st.equal(yoethwallet.wallet.validHdPath('m/44\'/60\'/0\'0'), true);
+    st.equal(yoethwallet.wallet.validHdPath(''), false);
+    st.end();
+  });
 
   t.test('sholud get V3 file name', (st) => {
     st.equal(/^UTC\-\-(?:[a-zA-Z0-9\-\.]+)\-\-(?:[a-fA-F0-9]+)$/.test(wallet.getV3Filename()), true);
@@ -97,6 +103,16 @@ tape('yoethwallet wallet test', (t) => {
 
   t.test('should generate from private key', (st) => {
     yoethwallet.wallet.fromPrivateKey(privateKey, (err, instance) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      st.equal(instance.getHexAddress(true), address);
+      st.end();
+    });
+  });
+
+  t.test('should generate from hdKey', (st) => {
+    yoethwallet.wallet.fromHdKey(wallet.hdKey, (err, instance) => {
       if (err) {
         st.equal(err, null);
       }

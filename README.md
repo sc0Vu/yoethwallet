@@ -16,18 +16,20 @@ Create wallet from seed
 
 ```
 const yoethwallet = require('yoethwallet')
-const wallet = yoethwallet.wallet.generate()
+const wallet = yoethwallet.wallet.generate(seed, hdPath, (err, instance) => {
+  // 
+});
 
-// get address
+// get address buffer
 wallet.getAddress()
 ```
 
 Create wallet from v3 json
 
 ```
-const wallet = yoethwallet.wallet.fromJson('valid v3 json get from wallet.toJson('password')', 'password')
+const wallet = yoethwallet.wallet.fromV3String('valid v3 json get from wallet.toJson('password')', 'password')
 
-// get address
+// get address buffer
 wallet.getAddress()
 ```
 
@@ -96,6 +98,12 @@ Get address hex string with 0x prefix or not.
 
 `fromV3String(json, password, callback)`
 Import wallet from v3 json string.
+
+`fromPrivateKey(privateKey, callback)`
+Import wallet from private key.
+
+`fromHdKey(hdKey, callback)`
+Import wallet from hdKey.
 
 ### Tx
 
