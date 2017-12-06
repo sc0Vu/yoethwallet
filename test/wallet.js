@@ -79,11 +79,13 @@ tape('yoethwallet wallet test', (t) => {
     privateKey = wallet.getPrivateKey();
 
     st.equal(privateKey.toString('hex'), wallet.getHexPrivateKey());
+    st.equal(wallet.privateKey.toString('hex'), wallet.getHexPrivateKey());
     st.end();
   });
 
   t.test('should get public key buffer', (st) => {
     st.equal(wallet.getPublicKey().toString('hex'), wallet.getHexPublicKey());
+    st.equal(wallet.publicKey.toString('hex'), wallet.getHexPublicKey());
     st.end();
   });
 
