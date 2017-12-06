@@ -3,6 +3,7 @@ const yoethwallet = require('../index');
 
 let wallet = {};
 let walletJson = '';
+let pkWalletJson = '';
 let address = '';
 let privateKey = '';
 
@@ -55,6 +56,8 @@ tape('yoethwallet wallet test', (t) => {
     wallet.toV3String('123456', {kdf: 'pbkdf2', cipher: 'aes128'}, (err, v3String) => {
       const v3 = JSON.parse(v3String);
 
+      pkWalletJson = v3String;
+
       st.equal(v3.version, 3);
       st.equal(v3.crypto.cipher, 'aes128');
       st.equal(v3.crypto.kdf, 'pbkdf2');
@@ -76,11 +79,13 @@ tape('yoethwallet wallet test', (t) => {
     privateKey = wallet.getPrivateKey();
 
     st.equal(privateKey.toString('hex'), wallet.getHexPrivateKey());
+    st.equal(wallet.privateKey.toString('hex'), wallet.getHexPrivateKey());
     st.end();
   });
 
   t.test('should get public key buffer', (st) => {
     st.equal(wallet.getPublicKey().toString('hex'), wallet.getHexPublicKey());
+    st.equal(wallet.publicKey.toString('hex'), wallet.getHexPublicKey());
     st.end();
   });
 
@@ -91,8 +96,18 @@ tape('yoethwallet wallet test', (t) => {
     st.end();
   });
 
-  t.test('should generate from v3 json string', (st) => {
+  t.test('should generate from v3 json string with scrypt', (st) => {
     yoethwallet.wallet.fromV3String(walletJson, '123456', (err, v3Wallet) => {
+      if (err) {
+        st.equal(err, null);
+      }
+      st.equal(v3Wallet.getHexAddress(true), address);
+      st.end();
+    });
+  });
+
+  t.test('should generate from v3 json string with pkdf2', (st) => {
+    yoethwallet.wallet.fromV3String(pkWalletJson, '123456', (err, v3Wallet) => {
       if (err) {
         st.equal(err, null);
       }
