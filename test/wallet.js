@@ -54,6 +54,9 @@ tape('yoethwallet wallet test', (t) => {
 
   t.test('sholud get V3 json with pbkdf2 and aes128', (st) => {
     wallet.toV3String('123456', {kdf: 'pbkdf2', cipher: 'aes128'}, (err, v3String) => {
+      if (err) {
+        st.equal(err, null);
+      }
       const v3 = JSON.parse(v3String);
 
       pkWalletJson = v3String;

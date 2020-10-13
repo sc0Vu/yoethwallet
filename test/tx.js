@@ -13,14 +13,13 @@ tape('before yoethwallet tx test', (t) => {
       t.equal(err, null);
     }
     wallet = v3;
-  });
 
-  t.test('should generate from v3 json string', (st) => {
-    st.equal(wallet.getHexAddress(true), '0xc4a7d55f6bc573cfb72dd04f8b3e84ca6789a2ea');
-    st.end();
+    t.test('should generate from v3 json string', (st) => {
+      st.equal(wallet.getHexAddress(true), '0xc4a7d55f6bc573cfb72dd04f8b3e84ca6789a2ea');
+      st.end();
+      t.end();
+    });
   });
-
-  t.end();
 });
 
 tape('yoethwallet tx test', (t) => {

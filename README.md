@@ -4,6 +4,8 @@
 
 Yet another ethereum wallet.
 
+Since we use official scrypt and set maxmem to a large integer, now the library require nodejs version >= v12.8.0 || version >= v10.17.0
+
 # Install
 
 ```
