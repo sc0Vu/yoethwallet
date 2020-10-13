@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/sc0Vu/yoethwallet.svg?branch=master)](https://travis-ci.org/sc0Vu/yoethwallet)
 [![codecov](https://codecov.io/gh/sc0Vu/yoethwallet/branch/master/graph/badge.svg)](https://codecov.io/gh/sc0Vu/yoethwallet)
 
-Another ethereum wallet.
+Yet another ethereum wallet.
 
 # Install
 
@@ -14,7 +14,7 @@ npm install yoethwallet --save
 
 Create wallet from seed
 
-```
+```JS
 const yoethwallet = require('yoethwallet')
 const wallet = yoethwallet.wallet.generate(seed, hdPath, (err, instance) => {
   // 
@@ -26,7 +26,7 @@ wallet.getAddress()
 
 Create wallet from v3 json
 
-```
+```JS
 const wallet = yoethwallet.wallet.fromV3String('valid v3 json get from wallet.toJson('password')', 'password')
 
 // get address buffer
