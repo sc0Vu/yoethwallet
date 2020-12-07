@@ -14,6 +14,7 @@ tape('before yoethwallet wallet test', (t) => {
       return;
     }
     wallet = instance;
+    t.equal(yoethwallet.wallet.validSeed(wallet.mnemonic), true);
     t.end();
   });
 });
