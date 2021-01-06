@@ -3,4 +3,4 @@ const yowallet = {
   tx: require('./lib/tx'),
 };
 
-module.exports = exports = yowallet;
+module.exports = yowallet;
